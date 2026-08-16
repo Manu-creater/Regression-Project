@@ -11,19 +11,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
 
-# ==========================================
-# 1. LOAD THE DATASET
-# ==========================================
-
 df = pd.read_csv("houses.csv")
 
 print("===== DATASET LOADED =====")
 print("Dataset loaded successfully!")
 
-
-# ==========================================
-# 2. EXPLORE THE DATASET
-# ==========================================
 
 print("\n===== FIRST 5 ROWS =====")
 print(df.head())
@@ -43,10 +35,6 @@ print(df.isnull().sum())
 print("\n===== DUPLICATE ROWS =====")
 print(df.duplicated().sum())
 
-
-# ==========================================
-# 3. EXPLORATORY VISUALIZATIONS
-# ==========================================
 
 # Size vs Price
 plt.figure(figsize=(7, 5))
@@ -96,10 +84,6 @@ print("age_vs_price.png")
 print("house_boxplot.png")
 
 
-# ==========================================
-# 4. SELECT FEATURES AND TARGET
-# ==========================================
-
 features = ["size", "rooms", "age"]
 
 X = df[features]
@@ -109,10 +93,6 @@ print("\n===== FEATURES AND TARGET =====")
 print("Features:", features)
 print("Target: price")
 
-
-# ==========================================
-# 5. TRAIN / TEST SPLIT
-# ==========================================
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -128,10 +108,6 @@ print("Training target rows:", y_train.shape[0])
 print("Testing target rows:", y_test.shape[0])
 
 
-# ==========================================
-# 6. TRAIN LINEAR REGRESSION MODEL
-# ==========================================
-
 model = LinearRegression()
 
 model.fit(X_train, y_train)
@@ -139,10 +115,6 @@ model.fit(X_train, y_train)
 print("\n===== MODEL TRAINED =====")
 print("Linear Regression model trained successfully!")
 
-
-# ==========================================
-# 7. MAKE TEST PREDICTIONS
-# ==========================================
 
 predictions = model.predict(X_test)
 
@@ -154,10 +126,6 @@ print("\nFirst 10 predicted prices:")
 print(predictions[:10])
 
 
-# ==========================================
-# 8. EVALUATE THE MODEL
-# ==========================================
-
 r2 = r2_score(y_test, predictions)
 
 rmse = np.sqrt(mean_squared_error(y_test, predictions))
@@ -166,11 +134,6 @@ print("\n===== MODEL EVALUATION =====")
 print("Test R²:", r2)
 print("Test RMSE:", rmse)
 
-
-# ==========================================
-# 9. MODEL COEFFICIENTS
-# ==========================================
-
 print("\n===== MODEL COEFFICIENTS =====")
 
 for feature, coefficient in zip(features, model.coef_):
@@ -178,10 +141,6 @@ for feature, coefficient in zip(features, model.coef_):
 
 print(f"Intercept: {model.intercept_:.4f}")
 
-
-# ==========================================
-# 10. PREDICTED VS ACTUAL PLOT
-# ==========================================
 
 plt.figure(figsize=(7, 5))
 
@@ -203,10 +162,6 @@ plt.close()
 print("\n===== FINAL GRAPH =====")
 print("predicted_vs_actual.png created successfully!")
 
-
-# ==========================================
-# 11. FINAL SUMMARY
-# ==========================================
 
 print("\n===== FINAL SUMMARY =====")
 print(f"Number of observations: {len(df)}")
