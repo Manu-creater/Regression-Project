@@ -10,36 +10,42 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-# Load the dataset
+
+# ==========================================
+# 1. LOAD THE DATASET
+# ==========================================
+
 df = pd.read_csv("houses.csv")
 
-# Display first 5 rows
-print("===== FIRST 5 ROWS =====")
+print("===== DATASET LOADED =====")
+print("Dataset loaded successfully!")
+
+
+# ==========================================
+# 2. EXPLORE THE DATASET
+# ==========================================
+
+print("\n===== FIRST 5 ROWS =====")
 print(df.head())
 
-# Dataset shape
 print("\n===== DATASET SHAPE =====")
 print(df.shape)
 
-# Column names
 print("\n===== COLUMN NAMES =====")
 print(df.columns.tolist())
 
-# Basic statistics
 print("\n===== DESCRIPTIVE STATISTICS =====")
 print(df.describe())
 
-# Check missing values
 print("\n===== MISSING VALUES =====")
 print(df.isnull().sum())
 
-# Check duplicate rows
 print("\n===== DUPLICATE ROWS =====")
 print(df.duplicated().sum())
 
 
 # ==========================================
-# EXPLORATORY VISUALIZATIONS
+# 3. EXPLORATORY VISUALIZATIONS
 # ==========================================
 
 # Size vs Price
@@ -91,7 +97,7 @@ print("house_boxplot.png")
 
 
 # ==========================================
-# 3. SELECT FEATURES AND TARGET
+# 4. SELECT FEATURES AND TARGET
 # ==========================================
 
 features = ["size", "rooms", "age"]
@@ -103,10 +109,9 @@ print("\n===== FEATURES AND TARGET =====")
 print("Features:", features)
 print("Target: price")
 
-from sklearn.model_selection import train_test_split
 
 # ==========================================
-# 4. TRAIN / TEST SPLIT
+# 5. TRAIN / TEST SPLIT
 # ==========================================
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -122,8 +127,9 @@ print("Testing feature rows:", X_test.shape[0])
 print("Training target rows:", y_train.shape[0])
 print("Testing target rows:", y_test.shape[0])
 
+
 # ==========================================
-# 5. CREATE AND TRAIN REGRESSION MODEL
+# 6. TRAIN LINEAR REGRESSION MODEL
 # ==========================================
 
 model = LinearRegression()
@@ -133,8 +139,9 @@ model.fit(X_train, y_train)
 print("\n===== MODEL TRAINED =====")
 print("Linear Regression model trained successfully!")
 
+
 # ==========================================
-# 6. MAKE TEST PREDICTIONS
+# 7. MAKE TEST PREDICTIONS
 # ==========================================
 
 predictions = model.predict(X_test)
@@ -146,21 +153,22 @@ print(y_test.head(10).to_numpy())
 print("\nFirst 10 predicted prices:")
 print(predictions[:10])
 
+
 # ==========================================
-# 7. EVALUATE - R²
+# 8. EVALUATE THE MODEL
 # ==========================================
 
 r2 = r2_score(y_test, predictions)
 
-print("\n===== MODEL EVALUATION =====")
-print("Test R²:", r2)
-
 rmse = np.sqrt(mean_squared_error(y_test, predictions))
 
+print("\n===== MODEL EVALUATION =====")
+print("Test R²:", r2)
 print("Test RMSE:", rmse)
 
+
 # ==========================================
-# 8. MODEL COEFFICIENTS
+# 9. MODEL COEFFICIENTS
 # ==========================================
 
 print("\n===== MODEL COEFFICIENTS =====")
@@ -170,8 +178,9 @@ for feature, coefficient in zip(features, model.coef_):
 
 print(f"Intercept: {model.intercept_:.4f}")
 
+
 # ==========================================
-# 9. PREDICTED VS ACTUAL PLOT
+# 10. PREDICTED VS ACTUAL PLOT
 # ==========================================
 
 plt.figure(figsize=(7, 5))
@@ -193,3 +202,15 @@ plt.close()
 
 print("\n===== FINAL GRAPH =====")
 print("predicted_vs_actual.png created successfully!")
+
+
+# ==========================================
+# 11. FINAL SUMMARY
+# ==========================================
+
+print("\n===== FINAL SUMMARY =====")
+print(f"Number of observations: {len(df)}")
+print(f"Number of training observations: {len(X_train)}")
+print(f"Number of testing observations: {len(X_test)}")
+print(f"Test R²: {r2:.4f}")
+print(f"Test RMSE: {rmse:.4f}")
