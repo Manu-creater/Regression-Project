@@ -1,54 +1,102 @@
-# Day 3 - House Price Regression Model
+# House Price Regression Model
 
-## Project Objective
+## 1. Project Objective
 
-The objective of this project is to build a regression model that predicts house prices using house size, number of rooms, and house age.
+The objective of this project is to build and evaluate a regression model that predicts house prices using house size, number of rooms, and house age.
 
-## Dataset
+The project follows the six required steps:
 
-A synthetic dataset containing 200 house observations was created because a dataset was not provided for the exercise.
+1. Pick and explore the dataset
+2. Prepare and split the data
+3. Train a regression model
+4. Evaluate the model
+5. Interpret the results
+6. Present the findings
 
-The dataset contains four variables:
+---
 
-- `size` - House size
-- `rooms` - Number of rooms
-- `age` - House age
-- `price` - House price (target variable)
+## 2. Dataset
 
-## Data Exploration
+The project uses the `houses.csv` dataset provided for the workshop.
 
-The dataset was checked for:
+The dataset contains 200 house observations and four variables:
 
+| Variable | Description | Role |
+|---|---|---|
+| `size` | House size | Feature |
+| `rooms` | Number of rooms | Feature |
+| `age` | House age | Feature |
+| `price` | House price | Target |
+
+---
+
+## 3. Data Exploration
+
+The dataset was explored using Python and Pandas.
+
+The following checks were performed:
+
+- Dataset shape
+- First five observations
+- Column names
+- Descriptive statistics
 - Missing values
 - Duplicate rows
-- Basic descriptive statistics
-- Relationships between features and house price
+- Feature versus target relationships
 - Potential outliers
 
-There were no missing values and no duplicate rows.
+The dataset contains:
 
-## Features and Target
+- **200 observations**
+- **4 variables**
+- **No missing values**
+- **No duplicate rows**
+
+Exploratory plots were created for:
+
+- House size vs price
+- Number of rooms vs price
+- House age vs price
+- Boxplots for outlier inspection
+
+---
+
+## 4. Features and Target
 
 ### Features
 
-- Size
-- Rooms
-- Age
+The following three variables were selected as predictors:
+
+- `size`
+- `rooms`
+- `age`
 
 ### Target
 
-- Price
+The target variable is:
 
-## Train/Test Split
+- `price`
 
-The dataset was divided into:
+The model therefore predicts house price based on the size, number of rooms, and age of the house.
 
-- 75% training data - 150 observations
-- 25% testing data - 50 observations
+---
 
-The test data was kept separate and was only used for final evaluation.
+## 5. Train/Test Split
 
-## Regression Model
+The dataset was divided into training and testing sets using a 75/25 split.
+
+- **Training observations:** 150
+- **Testing observations:** 50
+
+The model was trained only on the 150 training observations.
+
+The 50 testing observations were held back and used only for final evaluation.
+
+This ensures that the model is evaluated on data that it did not use during training.
+
+---
+
+## 6. Regression Model
 
 A Multiple Linear Regression model from scikit-learn was used.
 
@@ -58,31 +106,85 @@ The model was trained using:
 - Number of rooms
 - House age
 
-## Results
+The general regression equation is:
+
+`price = intercept + (size × coefficient) + (rooms × coefficient) + (age × coefficient)`
+
+---
+
+## 7. Model Results
+
+The model was evaluated using the held-back test dataset.
 
 ### Test Performance
 
-- **R²: 0.9338**
-- **RMSE: 25.86**
+| Metric | Result |
+|---|---:|
+| **R²** | **0.8854** |
+| **RMSE** | **10.1496** |
 
-The model explains approximately 93.38% of the variation in house prices on the unseen test data.
+The test R² of **0.8854** means that the model explains approximately **88.54% of the variation in house prices** on the unseen test data.
 
-### Model Coefficients
+The RMSE is **10.1496**, meaning the model's prediction error is approximately 10.15 price units in RMSE terms.
+
+---
+
+## 8. Model Coefficients
 
 | Feature | Coefficient |
 |---|---:|
-| Size | +0.1205 |
-| Rooms | +18.2684 |
-| Age | -1.8393 |
+| `size` | **+3.1743** |
+| `rooms` | **+15.3605** |
+| `age` | **-1.4052** |
+| Intercept | **23.4462** |
 
-The positive coefficients for size and rooms indicate that larger houses and houses with more rooms tend to have higher predicted prices. The negative coefficient for age indicates that older houses tend to have lower predicted prices. The predicted-versus-actual plot shows that most predictions are reasonably close to the ideal diagonal line. Overall, the model performs well on the held-back test data, although additional relevant features could potentially improve the model.
+### Interpretation
 
-## Project Files
+The coefficient for `size` is positive, meaning that larger houses are associated with higher predicted prices, while keeping the other variables constant.
+
+The coefficient for `rooms` is also positive, indicating that houses with more rooms tend to have higher predicted prices.
+
+The coefficient for `age` is negative, meaning that older houses tend to have lower predicted prices when the other features are held constant.
+
+All three coefficient signs are consistent with reasonable expectations for house prices.
+
+---
+
+## 9. Predicted vs Actual Results
+
+A predicted-versus-actual plot was created using the 50 unseen test observations.
+
+The closer the predicted values are to the diagonal reference line, the more accurate the predictions are.
+
+The plot provides a visual check of the model's performance in addition to the numerical R² and RMSE metrics.
+
+---
+
+## 10. Conclusion
+
+The multiple linear regression model performed well on the held-back test data, achieving a test R² of **0.8854** and an RMSE of **10.1496**. The model explains approximately 88.54% of the variation in house prices. The positive coefficients for size and rooms and the negative coefficient for age are sensible and align with expected relationships between these variables and house price. The model could potentially be improved by engineering additional useful features or testing other regression approaches.
+
+---
+
+## 11. Project Files
 
 - `regression_model.py` - Complete Python regression program
-- `houses.csv` - Dataset
-- `size_vs_price.png` - Size versus price plot
-- `rooms_vs_price.png` - Rooms versus price plot
-- `age_vs_price.png` - Age versus price plot
-- `house_boxplot.png` - Boxplot for outlier inspection
-- `predicted_vs_actual.png` - Final predicted versus actual plot
+- `houses.csv` - Lecturer-provided dataset
+- `size_vs_price.png` - House size versus price plot
+- `rooms_vs_price.png` - Number of rooms versus price plot
+- `age_vs_price.png` - House age versus price plot
+- `house_boxplot.png` - Boxplot used for outlier inspection
+- `predicted_vs_actual.png` - Predicted versus actual test results plot
+- `README.md` - Project documentation
+
+---
+
+## 12. Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Matplotlib
+- Git
+- GitHub
